@@ -1,0 +1,2 @@
+bottle==0.12.10
+pypandoc==1.3.3
