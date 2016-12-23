@@ -1,0 +1,39 @@
+body {
+	padding: 15px;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+h1 {
+	text-align: center;
+	font-family: Charter, serif;
+	font-size: 25px;
+}
+
+h2 {
+	text-align: center;
+	font-family: Charter, serif;
+	font-size: 20px;
+}
+
+h1.title {
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 30px;
+}
+
+p.author {
+	text-align: center;
+	font-family: monospace;
+	font-size: 13px;
+	font-weight: normal;
+	color: gray;
+}
+
+p {
+	font-family: Charter, serif;
+	font-size: 17px;
+	line-height: 1.3em;
+}
