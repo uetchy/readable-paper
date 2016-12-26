@@ -1,4 +1,12 @@
-app:
-  build: .
-  ports:
-    - 8080:8080
+version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - 80:8080
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+  redis:
+    image: redis
