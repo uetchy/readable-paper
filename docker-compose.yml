@@ -3,9 +3,18 @@ services:
   web:
     build: .
     ports:
-      - 80:8080
+      - 80:80
     volumes:
       - .:/usr/src/app
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+  worker:
+    build: .
+    command: rq worker -u redis://redis:6379
+    volumes:
+      - .:/app
     depends_on:
       - redis
   redis:
