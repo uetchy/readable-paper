@@ -12,7 +12,7 @@ services:
       - redis
   worker:
     build: .
-    command: rq worker -u redis://redis:6379
+    command: rq worker --url $REDIS_PORT
     volumes:
       - .:/usr/src/app
     links:

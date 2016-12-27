@@ -9,3 +9,11 @@ docker-compose up --build
 ```
 
 then access to http://localhost
+
+## Heroku
+
+```
+heroku create
+heroku addons:add heroku-redis
+git push heroku master
+```

@@ -1,11 +1,15 @@
 import os
-import logging
-from bottle import get, post, route, request, run, template, static_file
+import bottle
+import redis
 from rq import Queue
-from redis import Redis
 from arxiv_worker import fetch_and_convert_tex
 
-redis_conn = Redis(host='redis')
+port = os.environ.get('PORT', 80)
+redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
+
+# setup job queue
+print('redis_url', redis_url)
+redis_conn = redis.from_url(redis_url)
 queue = Queue(connection=redis_conn)
 
 def layout_header():
@@ -44,11 +48,11 @@ def layout_footer():
         </html>
     """
 
-@route('/static/<filepath:path>')
+@bottle.route('/static/<filepath:path>')
 def server_static(filepath):
-    return static_file(filepath, root=os.path.join(os.path.dirname(os.path.realpath(__file__)), './static'))
+    return bottle.static_file(filepath, root=os.path.join(os.path.dirname(os.path.realpath(__file__)), './static'))
 
-@get('/')
+@bottle.get('/')
 def welcome():
     return layout_header() + """
         <h1>Readable Paper</h1>
@@ -57,18 +61,18 @@ def welcome():
         </form>
     """ + layout_footer()
 
-@get('/arxiv/<id>')
+@bottle.get('/arxiv/<id>')
 def arxiv_get(id):
-    print(id)
     if redis_conn.exists(id):
         job = queue.fetch_job(redis_conn.get(id).decode('utf-8'))
         if job.result == None:
-            return "Converting! Wait for a sec and refresh this page"
+            return "Converting now! Wait for a sec and refresh this page"
         else:
             return layout_header() + job.result + layout_footer()
     else:
+        # enqueue job and push job id to DB
         job = queue.enqueue(fetch_and_convert_tex, id)
         redis_conn.set(id, job.id.encode('utf-8'))
         return "Process has been started! Refresh this page later"
 
-run(host='0.0.0.0', port=80, server='paste', debug=True)
+bottle.run(host='0.0.0.0', port=port, server='paste', debug=True)
