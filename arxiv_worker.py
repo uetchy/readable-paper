@@ -17,9 +17,12 @@ def fetch_and_convert_tex(id):
         tar.extractall(workdir)
         tar.close()
 
+        # DEBUG
+        print('List of contents', os.listdir(workdir))
+
         # search for a TeX source
         tex_files = [x for x in os.listdir(workdir) if x.endswith('.tex')]
-        print(tex_files)
+        print('TeX', tex_files)
         if len(tex_files) == 0:
             return False
         tex_filepath = join(workdir, tex_files[0])

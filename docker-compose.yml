@@ -7,14 +7,16 @@ services:
     volumes:
       - .:/usr/src/app
     links:
-      - redis:redis
+      - redis
     depends_on:
       - redis
   worker:
     build: .
     command: rq worker -u redis://redis:6379
     volumes:
-      - .:/app
+      - .:/usr/src/app
+    links:
+      - redis
     depends_on:
       - redis
   redis:
