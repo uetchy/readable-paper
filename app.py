@@ -2,7 +2,7 @@ import os
 import bottle
 import redis
 from rq import Queue
-from arxiv_worker import fetch_and_convert_tex
+from worker import arxiv_worker
 
 port = os.environ.get('PORT', 80)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
@@ -71,7 +71,7 @@ def arxiv_get(id):
             return layout_header() + job.result + layout_footer()
     else:
         # enqueue job and push job id to DB
-        job = queue.enqueue(fetch_and_convert_tex, id)
+        job = queue.enqueue(arxiv_worker.fetch_and_convert_tex, id)
         redis_conn.set(id, job.id.encode('utf-8'))
         return "Process has been started! Refresh this page later"
 
