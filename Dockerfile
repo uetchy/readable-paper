@@ -1,7 +1,10 @@
-FROM python:3.5.2-onbuild
+FROM python:3.6.0-onbuild
 
 # install pandoc
-RUN apt-get update && apt-get install -y pandoc && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+	  apt-get install -y pandoc pandoc-citeproc && \
+	  apt-get clean && \
+	  rm -rf /var/lib/apt/lists/*
 
 # avoid print() issue
 # see http://stackoverflow.com/questions/27301468/how-do-i-display-output-from-python-application-running-inside-docker-container
