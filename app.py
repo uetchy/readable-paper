@@ -6,9 +6,12 @@ from worker import arxiv_worker
 
 port = os.environ.get('PORT', 80)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
+is_production = os.environ.get('DEBUG', False)
+
+print('is_production:', is_production)
 
 # setup job queue
-print('redis_url', redis_url)
+print('redis_url:', redis_url)
 redis_conn = redis.from_url(redis_url)
 queue = Queue(connection=redis_conn)
 
@@ -55,9 +58,16 @@ def server_static(filepath):
 @bottle.get('/')
 def welcome():
     return layout_header() + """
+        <style>
+            body {
+                text-align: center;
+            }
+        </style>
         <h1>Readable Paper</h1>
         <form onSubmit="location.pathname='/arxiv/'+document.querySelector('#field').value; return false">
-            <input type="text" id="field" />
+            <input type="text" id="field" placeholder="arXiv ID" />
+            <button type="submit">Convert</button>
+            <p>Example: 1612.04811v1</p>
         </form>
     """ + layout_footer()
 
@@ -75,4 +85,4 @@ def arxiv_get(id):
         redis_conn.set(id, job.id.encode('utf-8'))
         return "Process has been started! Refresh this page later"
 
-bottle.run(host='0.0.0.0', port=port, server='paste', debug=True)
+bottle.run(host='0.0.0.0', port=port, server='paste', debug=not is_production)
