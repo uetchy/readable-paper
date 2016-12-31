@@ -5,6 +5,9 @@ import tempfile
 import pypandoc
 
 def fetch_and_convert_tex(id):
+    # setup pandoc
+    pypandoc.pandoc_download.download_pandoc()
+
     with tempfile.TemporaryDirectory() as workdir:
         # download an archive from arXiv
         archive_path = os.path.join(workdir, 'archive.tar.gz')
