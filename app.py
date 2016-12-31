@@ -3,12 +3,16 @@ import bottle
 import redis
 from rq import Queue
 from worker import arxiv_worker
+from pypandoc.pandoc_download import download_pandoc
 
 port = os.environ.get('PORT', 80)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
 is_production = os.environ.get('DEBUG', False)
 
 print('is_production:', is_production)
+
+# setup pandoc
+download_pandoc()
 
 # setup job queue
 print('redis_url:', redis_url)
