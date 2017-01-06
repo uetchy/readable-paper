@@ -48,7 +48,9 @@ def arxiv_get(id):
         else:
             return bottle.template("""
                 % rebase('template/base.tpl', title='Readable Paper')
+                <div class="paper">
                 {{!result}}
+                </div>
             """, result=job.result)
     else:
         # enqueue job and push job id to DB

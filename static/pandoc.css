@@ -2,38 +2,76 @@ body {
 	padding: 15px;
 }
 
-img {
-	width: 100%;
-	height: auto;
-}
-
 h1 {
 	text-align: center;
 	font-family: Charter, serif;
 	font-size: 25px;
 }
 
-h2 {
+.paper {
+	padding: 0 100px;
+}
+
+.paper img {
+	width: 100%;
+	height: auto;
+}
+
+.paper h1 {
+	text-align: center;
+	font-family: Charter, serif;
+	font-size: 35px;
+}
+
+.paper h2 {
 	text-align: center;
 	font-family: Charter, serif;
 	font-size: 20px;
 }
 
-h1.title {
+.paper h1.title {
 	font-family: 'Helvetica Neue', sans-serif;
-	font-size: 30px;
+	font-size: 50px;
 }
 
-p.author {
+.paper p.author {
 	text-align: center;
 	font-family: monospace;
-	font-size: 13px;
+	font-size: 20px;
 	font-weight: normal;
 	color: gray;
 }
 
-p {
+.paper p {
 	font-family: Charter, serif;
-	font-size: 17px;
+	font-size: 22px;
 	line-height: 1.3em;
+}
+
+@media (max-width: 800px) {
+	.paper {
+		padding: 0 50px;
+	}
+}
+
+@media (max-width: 600px) {
+	.paper {
+		padding: 0 20px;
+	}
+
+	.paper h1.title {
+		font-size: 30px;
+	}
+
+	.paper p.author {
+		font-size: 15px;
+	}
+
+	.paper h1 {
+		font-size: 25px;
+	}
+
+	.paper h2 {
+		font-size: 20px;
+	}
 }
