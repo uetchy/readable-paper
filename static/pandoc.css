@@ -8,6 +8,14 @@ h1 {
 	font-size: 25px;
 }
 
+b {
+	font-weight: bold;
+}
+
+h1.logo a {
+	color: black;
+}
+
 .paper {
 	padding: 0 100px;
 }

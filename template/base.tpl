@@ -25,7 +25,7 @@
     <title>{{title or 'No Title'}} – Readable Paper</title>
   </head>
 <body>
-  <h1>Readable Paper</h1>
+  <h1 class="logo"><a href="/">Readable Paper</a></h1>
   <hr/>
   {{!base}}
 </body>
