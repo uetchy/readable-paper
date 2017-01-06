@@ -54,6 +54,8 @@ h1.logo a {
 	font-family: Charter, serif;
 	font-size: 22px;
 	line-height: 1.3em;
+	hyphens: auto;
+	-webkit-hyphens: auto;
 }
 
 @media (max-width: 800px) {
@@ -64,22 +66,26 @@ h1.logo a {
 
 @media (max-width: 600px) {
 	.paper {
-		padding: 0 20px;
+		padding: 0 10px;
 	}
 
 	.paper h1.title {
-		font-size: 30px;
+		font-size: 25px;
 	}
 
 	.paper p.author {
 		font-size: 15px;
 	}
 
+	.paper p {
+		font-size: 18px;
+	}
+
 	.paper h1 {
-		font-size: 25px;
+		font-size: 20px;
 	}
 
 	.paper h2 {
-		font-size: 20px;
+		font-size: 15px;
 	}
 }
