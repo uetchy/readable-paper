@@ -31,7 +31,8 @@ def welcome():
         <form onSubmit="location.pathname='/arxiv/'+document.querySelector('#field').value; return false">
             <input type="text" id="field" placeholder="arXiv ID" />
             <button type="submit">Convert</button>
-            <p>Example: 1612.04811v1</p>
+            <p>Currently supports arXiv papers.</p>
+            <p>Put arXiv ID into textarea to convert (e.g. 1612.04811v1)</p>
         </form>
     """)
 
