@@ -3,6 +3,12 @@ import os
 import tarfile
 import tempfile
 import pypandoc
+import pymongo
+
+# setup database
+mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
+mongo_client = pymongo.MongoClient(mongodb_url)
+db = mongo_client.get_default_database()
 
 def fetch_and_convert_tex(id):
     with tempfile.TemporaryDirectory() as workdir:
@@ -39,4 +45,9 @@ def fetch_and_convert_tex(id):
 
         output = pypandoc.convert_file(tex_filepath, 'html5', extra_args=extra_args)
 
-        return output
+        paper_id = db.papers.insert_one({
+            "arxiv_id": id,
+            "content": output
+        }).inserted_id
+
+        return paper_id

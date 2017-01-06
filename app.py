@@ -1,14 +1,21 @@
 import os
 import bottle
+import pymongo
 import redis
 from rq import Queue
 from worker import arxiv_worker
 
 port = os.environ.get('PORT', 80)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
+mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
 is_production = os.environ.get('DEBUG', False)
 
 print('is_production:', is_production)
+
+# setup database
+mongo_client = pymongo.MongoClient(mongodb_url)
+db = mongo_client.get_default_database()
+papers = db.papers
 
 # setup job queue
 print('redis_url:', redis_url)
@@ -40,18 +47,20 @@ def welcome():
 def arxiv_get(id):
     if redis_conn.exists(id):
         job = queue.fetch_job(redis_conn.get(id).decode('utf-8'))
-        if job.result == None:
+        if job.result is None:
             return bottle.template("""
                 % rebase('template/base.tpl', title='Readable Paper')
                 <p>Converting now! Wait for a sec and refresh this page</p>
             """)
-        else:
-            return bottle.template("""
-                % rebase('template/base.tpl', title='Readable Paper')
-                <div class="paper">
-                {{!result}}
-                </div>
-            """, result=job.result)
+
+    paper = papers.find_one({"arxiv_id": id})
+    if paper:
+        return bottle.template("""
+            % rebase('template/base.tpl', title='Readable Paper')
+            <div class="paper">
+            {{!content}}
+            </div>
+        """, content=paper['content'])
     else:
         # enqueue job and push job id to DB
         job = queue.enqueue(arxiv_worker.fetch_and_convert_tex, id)
