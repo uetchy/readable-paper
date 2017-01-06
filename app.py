@@ -47,7 +47,9 @@ def welcome():
 def arxiv_get(id):
     if redis_conn.exists(id):
         job = queue.fetch_job(redis_conn.get(id).decode('utf-8'))
-        if job.result is None:
+        if job is None:
+            redis_conn.delete(id)
+        elif job.result is None:
             return bottle.template("""
                 % rebase('template/base.tpl', title='Readable Paper')
                 <p>Converting now! Wait for a sec and refresh this page</p>
@@ -58,9 +60,12 @@ def arxiv_get(id):
         return bottle.template("""
             % rebase('template/base.tpl', title='Readable Paper')
             <div class="paper">
+            <blockquote>
+                <a href="https://arxiv.org/abs/{{arxiv_id}}">Original source</a>
+            </blockquote>
             {{!content}}
             </div>
-        """, content=paper['content'])
+        """, content=paper['content'], arxiv_id=id)
     else:
         # enqueue job and push job id to DB
         job = queue.enqueue(arxiv_worker.fetch_and_convert_tex, id)
