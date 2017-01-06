@@ -33,6 +33,10 @@ def fetch_and_convert_tex(id):
             '--self-contained',
             '--data-dir', pandoc_dir
         ]
+
+        print(pandoc_dir)
+        print(os.listdir(pandoc_dir))
+
         output = pypandoc.convert_file(tex_filepath, 'html5', extra_args=extra_args)
 
         return output
