@@ -22,9 +22,11 @@ print('redis_url:', redis_url)
 redis_conn = redis.from_url(redis_url)
 queue = Queue(connection=redis_conn)
 
+
 @bottle.route('/static/<filepath:path>')
 def server_static(filepath):
     return bottle.static_file(filepath, root=os.path.join(os.path.dirname(os.path.realpath(__file__)), './static'))
+
 
 @bottle.get('/')
 def welcome():
@@ -42,6 +44,7 @@ def welcome():
             <p>Put arXiv ID into textarea to convert (e.g. <b>1612.04811v1</b>)</p>
         </form>
     """)
+
 
 @bottle.get('/arxiv/<id>')
 def arxiv_get(id):

@@ -8,7 +8,7 @@
 docker-compose up --build
 ```
 
-then access to http://localhost
+then access to <http://localhost>
 
 ## Heroku
 

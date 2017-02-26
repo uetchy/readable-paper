@@ -1,13 +1,17 @@
 $for(author-meta)$
 <div id="author" style="display: none">$author-meta$</div>
 $endfor$
+
 $if(date-meta)$
 <div id="dcterms.date" style="display: none">$date-meta$</div>
 $endif$
+
 $if(keywords)$
 <div id="keywords" style="display: none">$for(keywords)$$keywords$$sep$, $endfor$</div>
 $endif$
+
 <div id="title" style="display: none">$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</div>
+
 $for(header-includes)$
 <div id="header-includes" style="display: none">$header-includes$</div>
 $endfor$
@@ -15,32 +19,40 @@ $endfor$
 $for(include-before)$
 $include-before$
 $endfor$
+
 $if(title)$
 <header>
-<h1 class="title">$title$</h1>
-$if(subtitle)$
-<p class="subtitle">$subtitle$</p>
-$endif$
-$for(author)$
-<p class="author">$author$</p>
-$endfor$
-$if(date)$
-<p class="date">$date$</p>
-$endif$
+  <h1 class="title">$title$</h1>
+
+  $if(subtitle)$
+  <p class="subtitle">$subtitle$</p>
+  $endif$
+
+  $for(author)$
+  <p class="author">$author$</p>
+  $endfor$
+
+  $if(date)$
+  <p class="date">$date$</p>
+  $endif$
 </header>
 $endif$
+
 $if(toc)$
 <nav id="$idprefix$TOC">
-$toc$
+  $toc$
 </nav>
 $endif$
+
 $if(abstract)$
 <div class="abstract-wrapper">
-<h1 id="abstract">Abstract</h1>
-$abstract$
+  <h1 id="abstract">Abstract</h1>
+  $abstract$
 </div>
 $endif$
+
 $body$
+
 $for(include-after)$
 $include-after$
 $endfor$

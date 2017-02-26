@@ -10,11 +10,13 @@ mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
 mongo_client = pymongo.MongoClient(mongodb_url)
 db = mongo_client.get_default_database()
 
+
 def fetch_and_convert_tex(id):
     with tempfile.TemporaryDirectory() as workdir:
         # download an archive from arXiv
         archive_path = os.path.join(workdir, 'archive.tar.gz')
-        urllib.request.urlretrieve("https://arxiv.org/e-print/{}".format(id), archive_path)
+        urllib.request.urlretrieve(
+            "https://arxiv.org/e-print/{}".format(id), archive_path)
 
         # extract the archive
         tar = tarfile.open(archive_path)
@@ -33,7 +35,8 @@ def fetch_and_convert_tex(id):
         print(tex_filepath)
 
         # convert a TeX source to HTML
-        pandoc_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../pandoc')
+        pandoc_dir = os.path.join(os.path.dirname(
+            os.path.realpath(__file__)), '../pandoc')
         os.chdir(workdir)
         extra_args = [
             '--self-contained',
@@ -43,7 +46,8 @@ def fetch_and_convert_tex(id):
         print(pandoc_dir)
         print(os.listdir(pandoc_dir))
 
-        output = pypandoc.convert_file(tex_filepath, 'html5', extra_args=extra_args)
+        output = pypandoc.convert_file(
+            tex_filepath, 'html5', extra_args=extra_args)
 
         paper_id = db.papers.insert_one({
             "arxiv_id": id,
