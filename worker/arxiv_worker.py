@@ -13,6 +13,8 @@ db = mongo_client.get_default_database()
 
 def fetch_and_convert_tex(id):
     with tempfile.TemporaryDirectory() as workdir:
+        print('PATH', os.environ['PATH'])
+
         # download an archive from arXiv
         archive_path = os.path.join(workdir, 'archive.tar.gz')
         urllib.request.urlretrieve(
