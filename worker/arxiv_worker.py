@@ -20,21 +20,36 @@ def fetch_and_convert_tex(id):
         urllib.request.urlretrieve(
             "https://arxiv.org/e-print/{}".format(id), archive_path)
 
+
         # extract the archive
         tar = tarfile.open(archive_path)
         tar.extractall(workdir)
         tar.close()
 
+
         # DEBUG
         print('List of contents', os.listdir(workdir))
+
 
         # search for a TeX source
         tex_files = [x for x in os.listdir(workdir) if x.endswith('.tex')]
         print('TeX', tex_files)
+
+        def hasDC(texpath):
+            with open(os.path.join(workdir, texpath), 'r') as f:
+                if "documentclass" in f.read():
+                    return True
+                else:
+                    return False
+
+        tex_files = list(filter(hasDC, tex_files))
+
         if len(tex_files) == 0:
             return False
+
         tex_filepath = os.path.join(workdir, tex_files[0])
         print(tex_filepath)
+
 
         # convert a TeX source to HTML
         pandoc_dir = os.path.join(os.path.dirname(
