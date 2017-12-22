@@ -25,7 +25,10 @@ queue = Queue(connection=redis_conn)
 
 @bottle.route('/static/<filepath:path>')
 def server_static(filepath):
-    return bottle.static_file(filepath, root=os.path.join(os.path.dirname(os.path.realpath(__file__)), './static'))
+    return bottle.static_file(
+        filepath,
+        root=os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), './static'))
 
 
 @bottle.get('/')
@@ -60,7 +63,8 @@ def arxiv_get(id):
 
     paper = papers.find_one({"arxiv_id": id})
     if paper:
-        return bottle.template("""
+        return bottle.template(
+            """
             % rebase('template/base.tpl', title='Readable Paper')
             <div class="paper">
             <blockquote>
@@ -68,7 +72,9 @@ def arxiv_get(id):
             </blockquote>
             {{!content}}
             </div>
-        """, content=paper['content'], arxiv_id=id)
+        """,
+            content=paper['content'],
+            arxiv_id=id)
     else:
         # enqueue job and push job id to DB
         job = queue.enqueue(arxiv_worker.fetch_and_convert_tex, id)
@@ -77,5 +83,6 @@ def arxiv_get(id):
             % rebase('template/base.tpl', title='Readable Paper')
             <p>Process has been started! Refresh this page later</p>
         """)
+
 
 bottle.run(host='0.0.0.0', port=port, server='paste', debug=not is_production)
