@@ -1,4 +1,4 @@
-FROM python:3.6.0-onbuild
+FROM python:3.6.3-onbuild
 
 # install pandoc
 RUN apt-get update && \

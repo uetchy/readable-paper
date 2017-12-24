@@ -85,4 +85,5 @@ def arxiv_get(id):
         """)
 
 
-bottle.run(host='0.0.0.0', port=port, server='paste', debug=not is_production)
+bottle.run(
+    host='0.0.0.0', port=port, server='paste', debug=(not is_production))
