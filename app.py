@@ -5,6 +5,7 @@ import redis
 from rq import Queue
 from worker import arxiv_worker
 
+host = '0.0.0.0'
 port = os.environ.get('PORT', 80)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
 mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
@@ -85,5 +86,4 @@ def arxiv_get(id):
         """)
 
 
-bottle.run(
-    host='0.0.0.0', port=port, server='paste', debug=(not is_production))
+bottle.run(host=host, port=port, server='paste', debug=(not is_production))

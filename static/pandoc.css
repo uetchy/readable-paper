@@ -1,92 +1,92 @@
 body {
-	padding: 15px;
+  padding: 15px;
 }
 
 h1 {
-	text-align: center;
-	font-family: Charter, serif;
-	font-size: 25px;
+  text-align: center;
+  font-family: Charter, serif;
+  font-size: 25px;
 }
 
 b {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 h1.logo a {
-	color: black;
+  color: black;
 }
 
 .paper {
-	padding: 0 100px;
+  padding: 0 100px;
 }
 
 .paper img {
-	width: 100%;
-	height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .paper h1 {
-	text-align: center;
-	font-family: Charter, serif;
-	font-size: 35px;
+  text-align: center;
+  font-family: Charter, serif;
+  font-size: 35px;
 }
 
 .paper h2 {
-	text-align: center;
-	font-family: Charter, serif;
-	font-size: 20px;
+  text-align: center;
+  font-family: Charter, serif;
+  font-size: 20px;
 }
 
 .paper h1.title {
-	font-family: 'Helvetica Neue', sans-serif;
-	font-size: 50px;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 50px;
 }
 
 .paper p.author {
-	text-align: center;
-	font-family: monospace;
-	font-size: 20px;
-	font-weight: normal;
-	color: gray;
+  text-align: center;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: normal;
+  color: gray;
 }
 
 .paper p {
-	font-family: Charter, serif;
-	font-size: 22px;
-	line-height: 1.3em;
-	hyphens: auto;
-	-webkit-hyphens: auto;
-	word-wrap: break-word;
+  font-family: Charter, serif;
+  font-size: 22px;
+  line-height: 1.3em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  word-wrap: break-word;
 }
 
 @media (max-width: 800px) {
-	.paper {
-		padding: 0 50px;
-	}
+  .paper {
+    padding: 0 50px;
+  }
 }
 
 @media (max-width: 600px) {
-	.paper {
-		padding: 0 10px;
-	}
+  .paper {
+    padding: 0 10px;
+  }
 
-	.paper h1.title {
-		font-size: 25px;
-	}
+  .paper h1.title {
+    font-size: 25px;
+  }
 
-	.paper p.author {
-		font-size: 15px;
-	}
+  .paper p.author {
+    font-size: 15px;
+  }
 
-	.paper p {
-		font-size: 18px;
-	}
+  .paper p {
+    font-size: 18px;
+  }
 
-	.paper h1 {
-		font-size: 20px;
-	}
+  .paper h1 {
+    font-size: 20px;
+  }
 
-	.paper h2 {
-		font-size: 15px;
-	}
+  .paper h2 {
+    font-size: 15px;
+  }
 }

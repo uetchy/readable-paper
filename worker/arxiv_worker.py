@@ -66,5 +66,5 @@ def fetch_and_convert_tex(id):
             }).inserted_id
 
             return paper_id
-    except:
+    except Exception:
         pass
