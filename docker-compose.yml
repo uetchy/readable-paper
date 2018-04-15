@@ -1,9 +1,9 @@
-version: "2"
+version: "3"
 services:
   web:
     build: .
     ports:
-      - 8080:80
+      - 8080:8080
     volumes:
       - .:/usr/src/app
     links:
@@ -13,10 +13,10 @@ services:
       - redis
       - mongo
   worker:
-    build: .
-    command: rq worker --url redis://redis:6379
+    build: worker
+    restart: always
     volumes:
-      - .:/usr/src/app
+      - ./worker:/usr/src/app
     links:
       - redis
       - mongo

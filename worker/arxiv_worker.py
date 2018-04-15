@@ -50,7 +50,7 @@ def fetch_and_convert_tex(id):
 
             # convert a TeX source to HTML
             pandoc_dir = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), '../pandoc')
+                os.path.dirname(os.path.realpath(__file__)), 'pandoc')
             os.chdir(workdir)
             extra_args = ['--self-contained', '--data-dir', pandoc_dir]
 

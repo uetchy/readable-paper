@@ -6,7 +6,7 @@ from rq import Queue
 from worker import arxiv_worker
 
 host = '0.0.0.0'
-port = os.environ.get('PORT', 80)
+port = os.environ.get('PORT', 8080)
 redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
 mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
 is_production = os.environ.get('DEBUG', False)
