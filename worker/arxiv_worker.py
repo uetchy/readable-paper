@@ -6,7 +6,7 @@ import pypandoc
 import pymongo
 
 # setup database
-mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
+mongodb_url = os.environ.get('MONGODB_URL', 'mongodb://db:27017/db')
 mongo_client = pymongo.MongoClient(mongodb_url)
 db = mongo_client.get_default_database()
 

@@ -1,29 +1,30 @@
-version: "3"
+version: '3'
 services:
   web:
+    image: readable-paper
     build: .
     ports:
-      - 8080:8080
+      - '8080:8080'
     volumes:
       - .:/usr/src/app
     links:
-      - redis
-      - mongo
+      - queue
+      - db
     depends_on:
-      - redis
-      - mongo
+      - queue
+      - db
   worker:
     build: worker
     restart: always
     volumes:
       - ./worker:/usr/src/app
     links:
-      - redis
-      - mongo
+      - queue
+      - db
     depends_on:
-      - redis
-      - mongo
-  redis:
+      - queue
+      - db
+  queue:
     image: redis
-  mongo:
+  db:
     image: mongo

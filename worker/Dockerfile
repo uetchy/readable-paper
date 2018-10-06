@@ -8,4 +8,4 @@ RUN apt-get update && \
 # see http://stackoverflow.com/questions/27301468/how-do-i-display-output-from-python-application-running-inside-docker-container
 ENV PYTHONUNBUFFERED 0
 
-CMD ["rq",  "worker", "--url", "redis://redis:6379"]
+CMD ["rq",  "worker", "--url", "$QUEUE_URL"]

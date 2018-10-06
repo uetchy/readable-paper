@@ -7,8 +7,8 @@ from worker import arxiv_worker
 
 host = '0.0.0.0'
 port = os.environ.get('PORT', 8080)
-redis_url = os.environ.get('REDIS_URL', 'redis://redis:6379')
-mongodb_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/db')
+redis_url = os.environ.get('REDIS_URL', 'redis://queue:6379')
+mongodb_url = os.environ.get('MONGODB_URL', 'mongodb://db:27017/db')
 is_production = os.environ.get('DEBUG', False)
 
 print('is_production:', is_production)
